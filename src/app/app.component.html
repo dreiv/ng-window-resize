@@ -1,1 +1,5 @@
-<h1>hello world!</h1>
+<h1>resize the window!</h1>
+
+<ng-container *ngIf="$resize | async as size">
+  {{ size }}
+</ng-container>
