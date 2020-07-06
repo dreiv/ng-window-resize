@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ResizeService } from './resize.service';
+import { BreakpointService, Breakpoint } from './breakpoint.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  $resize!: Observable<any>;
+  isPhone$!: Observable<any>
 
-  constructor(private resizeService: ResizeService) { }
+  constructor(private breakpointService: BreakpointService) { }
 
   ngOnInit(): void {
-    this.$resize = this.resizeService.$resize;
+    this.isPhone$ = this.breakpointService.is$(Breakpoint.PHONE);
   }
 }

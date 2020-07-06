@@ -1,5 +1,5 @@
 <h1>resize the window!</h1>
 
-<ng-container *ngIf="$resize | async as size">
-  {{ size }}
+<ng-container *ngIf="isPhone$ | async as matches">
+  isPhone: {{ matches | json }}
 </ng-container>
