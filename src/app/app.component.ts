@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  isPhone$!: Observable<any>
+  isPhone$!: Observable<boolean>;
 
-  constructor(private breakpointService: BreakpointService) { }
+  constructor(private breakpointService: BreakpointService) {}
 
   ngOnInit(): void {
     this.isPhone$ = this.breakpointService.is$(Breakpoint.PHONE);

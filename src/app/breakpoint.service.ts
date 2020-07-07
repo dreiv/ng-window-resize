@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { fromEventPattern } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { fromEventPattern, Observable } from 'rxjs';
+import { startWith, pluck } from 'rxjs/operators';
 
 import { enterZone } from './enterZone';
 
@@ -15,13 +15,14 @@ export enum Breakpoint {
   providedIn: 'root'
 })
 export class BreakpointService {
-  constructor(private zone: NgZone) { }
+  constructor(private zone: NgZone) {}
 
-  is$ = (breakpoint: Breakpoint) => fromEventPattern(
-    handler => window.matchMedia(breakpoint).addListener(handler),
-  ).pipe(
-    enterZone(this.zone),
-    startWith(window.matchMedia(breakpoint)),
-    map(({ matches }: any) => ({matches}))
-  );
+  is$ = (breakpoint: Breakpoint): Observable<boolean> =>
+    fromEventPattern((handler) =>
+      window.matchMedia(breakpoint).addListener(handler)
+    ).pipe(
+      enterZone(this.zone),
+      startWith(window.matchMedia(breakpoint)),
+      pluck('matches')
+    );
 }
